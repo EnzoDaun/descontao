@@ -27,6 +27,7 @@ npm run dev
 - Backend: http://localhost:8080
 
 ## Funcionalidades
-- Cadastro/Login de Associados e Comerciantes
-- Criação e gestão de cupons
-- Reserva e utilização de cupons
+- Cadastro/Login de Associados (CPF) e Comerciantes (CNPJ)
+- Criação e gestão de cupons com códigos únicos
+- Reserva e validação de cupons
+- Filtros e consultas por categoria/status

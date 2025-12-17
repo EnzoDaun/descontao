@@ -18,7 +18,7 @@ const Login = () => {
   const { login } = useAuth();
   const [tipoUsuario, setTipoUsuario] = useState('');
   const [formData, setFormData] = useState({
-    email: '',
+    documento: '', // CPF para associado ou CNPJ para comerciante
     senha: ''
   });
   const [loading, setLoading] = useState(false);
@@ -45,11 +45,16 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await api.post('/auth/login', formData);
+      const data = {
+        documento: formData.documento.replace(/\D/g, ''), // Remove formatação
+        senha: formData.senha
+      };
+
+      const response = await api.post('/auth/login', data);
       login(response.data);
       navigate('/dashboard');
     } catch (error) {
-      setError(error.response?.data?.message || 'Erro ao fazer login');
+      setError(error.response?.data?.message || 'Documento ou senha inválidos');
     } finally {
       setLoading(false);
     }
@@ -74,17 +79,20 @@ const Login = () => {
           <Box component="form" onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              label="Email"
-              name="email"
-              type="email"
-              value={formData.email}
+              label={
+                tipoUsuario === 'associado' ? 'CPF' :
+                tipoUsuario === 'comerciante' ? 'CNPJ' :
+                'CPF ou CNPJ'
+              }
+              name="documento"
+              value={formData.documento}
               onChange={handleChange}
               margin="normal"
               required
               helperText={
-                tipoUsuario === 'associado' ? 'Use seu email cadastrado com CPF' :
-                tipoUsuario === 'comerciante' ? 'Use seu email cadastrado com CNPJ' :
-                'Digite seu email de cadastro'
+                tipoUsuario === 'associado' ? 'Digite seu CPF' :
+                tipoUsuario === 'comerciante' ? 'Digite seu CNPJ' :
+                'Digite seu CPF ou CNPJ'
               }
             />
 
@@ -120,67 +128,79 @@ const Login = () => {
           </Box>
         </Box>
 
-        <Box sx={{ textAlign: 'center' }}>
-          {tipoUsuario && (
-            <Button
-              variant="text"
-              onClick={() => navigate('/')}
-              sx={{ mb: 2 }}
-            >
-              ← Voltar à página inicial
-            </Button>
-          )}
-          <Typography variant="body2">
-            {tipoUsuario === 'associado' && (
-              <>
-                Não tem conta?{' '}
-                <Button
-                  variant="text"
-                  size="small"
-                  onClick={() => navigate('/register/associado')}
-                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
-                >
-                  Cadastre-se como Associado
-                </Button>
-              </>
+          <Box sx={{ textAlign: 'center' }}>
+            {tipoUsuario && (
+              <Button
+                variant="text"
+                onClick={() => navigate('/')}
+                sx={{ mb: 2 }}
+              >
+                ← Voltar à página inicial
+              </Button>
             )}
-            {tipoUsuario === 'comerciante' && (
-              <>
-                Não tem conta?{' '}
-                <Button
-                  variant="text"
-                  size="small"
-                  onClick={() => navigate('/register/comercio')}
-                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
-                >
-                  Cadastre-se como Comerciante
-                </Button>
-              </>
-            )}
-            {!tipoUsuario && (
-              <>
-                Não tem conta?{' '}
-                <Button
-                  variant="text"
-                  size="small"
-                  onClick={() => navigate('/register/associado')}
-                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
-                >
-                  Cadastre-se como Associado
-                </Button>
-                {' ou '}
-                <Button
-                  variant="text"
-                  size="small"
-                  onClick={() => navigate('/register/comercio')}
-                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
-                >
-                  Cadastre-se como Comerciante
-                </Button>
-              </>
-            )}
-          </Typography>
-        </Box>
+
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              <Button
+                variant="text"
+                size="small"
+                onClick={() => setError('Funcionalidade de recuperação de senha em desenvolvimento')}
+                sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+              >
+                Esqueci minha senha
+              </Button>
+            </Typography>
+
+            <Typography variant="body2">
+              {tipoUsuario === 'associado' && (
+                <>
+                  Não tem conta?{' '}
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => navigate('/register/associado')}
+                    sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                  >
+                    Cadastre-se como Associado
+                  </Button>
+                </>
+              )}
+              {tipoUsuario === 'comerciante' && (
+                <>
+                  Não tem conta?{' '}
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => navigate('/register/comercio')}
+                    sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                  >
+                    Cadastre-se como Comerciante
+                  </Button>
+                </>
+              )}
+              {!tipoUsuario && (
+                <>
+                  Não tem conta?{' '}
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => navigate('/register/associado')}
+                    sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                  >
+                    Cadastre-se como Associado
+                  </Button>
+                  {' ou '}
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => navigate('/register/comercio')}
+                    sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                  >
+                    Cadastre-se como Comerciante
+                  </Button>
+                </>
+              )}
+            </Typography>
+          </Box>
       </Paper>
     </Container>
   );

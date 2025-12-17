@@ -24,32 +24,40 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
-        // Tentar login como associado
-        Optional<Associado> associado = associadoService.findByEmail(request.getEmail());
-        if (associado.isPresent() && associado.get().getSenha().equals(request.getSenha())) {
-            return ResponseEntity.ok(new AuthResponse(
-                "ASSOCIADO",
-                associado.get().getNome(),
-                associado.get().getEmail(),
-                associado.get().getCpf(),
-                "Login realizado com sucesso"
-            ));
-        }
+        try {
+            Long documento = Long.parseLong(request.getDocumento());
 
-        // Tentar login como comercio
-        Optional<Comercio> comercio = comercioService.findByEmail(request.getEmail());
-        if (comercio.isPresent() && comercio.get().getSenha().equals(request.getSenha())) {
-            return ResponseEntity.ok(new AuthResponse(
-                "COMERCIO",
-                comercio.get().getRazaoSocial(),
-                comercio.get().getEmail(),
-                comercio.get().getCnpj(),
-                "Login realizado com sucesso"
-            ));
-        }
+            // Tentar login como associado (CPF)
+            Optional<Associado> associado = associadoService.findById(documento);
+            if (associado.isPresent() && associado.get().getSenha().equals(request.getSenha())) {
+                return ResponseEntity.ok(new AuthResponse(
+                    "ASSOCIADO",
+                    associado.get().getNome(),
+                    associado.get().getEmail(),
+                    associado.get().getCpf(),
+                    "Login realizado com sucesso"
+                ));
+            }
 
-        return ResponseEntity.badRequest()
-            .body(new MessageResponse("Email ou senha inválidos"));
+            // Tentar login como comercio (CNPJ)
+            Optional<Comercio> comercio = comercioService.findById(documento);
+            if (comercio.isPresent() && comercio.get().getSenha().equals(request.getSenha())) {
+                return ResponseEntity.ok(new AuthResponse(
+                    "COMERCIO",
+                    comercio.get().getRazaoSocial(),
+                    comercio.get().getEmail(),
+                    comercio.get().getCnpj(),
+                    "Login realizado com sucesso"
+                ));
+            }
+
+            return ResponseEntity.badRequest()
+                .body(new MessageResponse("Documento ou senha inválidos"));
+
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest()
+                .body(new MessageResponse("Documento deve conter apenas números"));
+        }
     }
 
     @PostMapping("/register/associado")

@@ -101,6 +101,16 @@ const RegisterComercio = () => {
           Cadastro de Comércio
         </Typography>
 
+        <Box sx={{ textAlign: 'center', mb: 2 }}>
+          <Button
+            variant="text"
+            onClick={() => navigate('/')}
+            size="small"
+          >
+            ← Voltar à página inicial
+          </Button>
+        </Box>
+
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
             {error}

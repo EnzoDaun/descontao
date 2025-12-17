@@ -7,6 +7,7 @@ import {
   Grid,
   Paper
 } from '@mui/material';
+import { Person, Storefront } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -134,29 +135,83 @@ const Home = () => {
         </Typography>
 
         <Box sx={{ mt: 4 }}>
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => navigate('/login')}
-            sx={{ mr: 2 }}
-          >
-            Entrar
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={() => navigate('/register/associado')}
-            sx={{ mr: 2 }}
-          >
-            Sou Associado
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={() => navigate('/register/comercio')}
-          >
-            Sou Comerciante
-          </Button>
+          <Grid container spacing={4} justifyContent="center">
+            <Grid item xs={12} md={5}>
+              <Paper sx={{ p: 4, textAlign: 'center', minHeight: '360px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <Box>
+                  <Person sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
+                  <Typography variant="h5" gutterBottom color="primary">
+                    Sou Associado
+                  </Typography>
+                  <Typography variant="body2" paragraph>
+                    Encontre cupons de desconto exclusivos dos comerciantes da sua região
+                  </Typography>
+                </Box>
+                <Box sx={{ mt: 3 }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    onClick={() => navigate('/login?tipo=associado')}
+                    sx={{
+                      mb: 2,
+                      fontSize: '0.85rem',
+                      minHeight: '48px'
+                    }}
+                  >
+                    Entrar como Associado
+                  </Button>
+                  <Button
+                    variant="text"
+                    size="medium"
+                    fullWidth
+                    onClick={() => navigate('/register/associado')}
+                    sx={{ textTransform: 'none' }}
+                  >
+                    Cadastrar como Associado
+                  </Button>
+                </Box>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={5}>
+              <Paper sx={{ p: 4, textAlign: 'center', minHeight: '360px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <Box>
+                  <Storefront sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
+                  <Typography variant="h5" gutterBottom color="primary">
+                    Sou Comerciante
+                  </Typography>
+                  <Typography variant="body2" paragraph>
+                    Crie cupons de desconto e atraia mais clientes para seu negócio
+                  </Typography>
+                </Box>
+                <Box sx={{ mt: 3 }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    onClick={() => navigate('/login?tipo=comerciante')}
+                    sx={{
+                      mb: 2,
+                      fontSize: '0.85rem',
+                      minHeight: '48px'
+                    }}
+                  >
+                    Entrar como Comerciante
+                  </Button>
+                  <Button
+                    variant="text"
+                    size="medium"
+                    fullWidth
+                    onClick={() => navigate('/register/comercio')}
+                    sx={{ textTransform: 'none' }}
+                  >
+                    Cadastrar como Comerciante
+                  </Button>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>

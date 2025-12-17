@@ -15,6 +15,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../services/api';
 import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
+
+dayjs.locale('pt-br');
 
 const CriarCupom = () => {
   const { user, isComercio } = useAuth();
@@ -79,7 +82,7 @@ const CriarCupom = () => {
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Paper sx={{ p: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom>
@@ -113,7 +116,16 @@ const CriarCupom = () => {
                   label="Data de Início"
                   value={formData.dataInicio}
                   onChange={(value) => setFormData({ ...formData, dataInicio: value })}
-                  renderInput={(params) => <TextField {...params} fullWidth />}
+                  format="DD/MM/YYYY"
+                  slots={{
+                    textField: TextField
+                  }}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      required: true
+                    }
+                  }}
                 />
               </Grid>
 
@@ -122,7 +134,16 @@ const CriarCupom = () => {
                   label="Data de Término"
                   value={formData.dataTermino}
                   onChange={(value) => setFormData({ ...formData, dataTermino: value })}
-                  renderInput={(params) => <TextField {...params} fullWidth />}
+                  format="DD/MM/YYYY"
+                  slots={{
+                    textField: TextField
+                  }}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      required: true
+                    }
+                  }}
                 />
               </Grid>
 

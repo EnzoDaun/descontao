@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Paper,
@@ -6,22 +6,31 @@ import {
   Button,
   Typography,
   Box,
-  Alert,
-  Link
+  Alert
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../services/api';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
+  const [tipoUsuario, setTipoUsuario] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     senha: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tipo = searchParams.get('tipo');
+    if (tipo === 'associado' || tipo === 'comerciante') {
+      setTipoUsuario(tipo);
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     setFormData({
@@ -48,70 +57,129 @@ const Login = () => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
-      <Paper sx={{ p: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom align="center">
-          Login
-        </Typography>
+      <Paper sx={{ p: 4, minHeight: '360px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <Box>
+          <Typography variant="h4" component="h1" gutterBottom align="center">
+            {tipoUsuario === 'associado' && 'Login - Associado'}
+            {tipoUsuario === 'comerciante' && 'Login - Comerciante'}
+            {!tipoUsuario && 'Login'}
+          </Typography>
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
 
-        <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
+          <Box component="form" onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              margin="normal"
+              required
+              helperText={
+                tipoUsuario === 'associado' ? 'Use seu email cadastrado com CPF' :
+                tipoUsuario === 'comerciante' ? 'Use seu email cadastrado com CNPJ' :
+                'Digite seu email de cadastro'
+              }
+            />
 
-          <TextField
-            fullWidth
-            label="Senha"
-            name="senha"
-            type="password"
-            value={formData.senha}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
+            <TextField
+              fullWidth
+              label="Senha"
+              name="senha"
+              type="password"
+              value={formData.senha}
+              onChange={handleChange}
+              margin="normal"
+              required
+            />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            disabled={loading}
-          >
-            {loading ? 'Entrando...' : 'Entrar'}
-          </Button>
-
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2">
-              Não tem conta?{' '}
-              <Link
-                component="button"
-                type="button"
-                onClick={() => navigate('/register/associado')}
-              >
-                Cadastre-se como Associado
-              </Link>
-              {' ou '}
-              <Link
-                component="button"
-                type="button"
-                onClick={() => navigate('/register/comercio')}
-              >
-                Cadastre-se como Comerciante
-              </Link>
-            </Typography>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 2,
+                fontSize: '0.85rem',
+                minHeight: '48px'
+              }}
+              disabled={loading}
+            >
+              {loading ? 'Entrando...' :
+                tipoUsuario === 'associado' ? 'Entrar como Associado' :
+                tipoUsuario === 'comerciante' ? 'Entrar como Comerciante' :
+                'Entrar'
+              }
+            </Button>
           </Box>
+        </Box>
+
+        <Box sx={{ textAlign: 'center' }}>
+          {tipoUsuario && (
+            <Button
+              variant="text"
+              onClick={() => navigate('/')}
+              sx={{ mb: 2 }}
+            >
+              ← Voltar à página inicial
+            </Button>
+          )}
+          <Typography variant="body2">
+            {tipoUsuario === 'associado' && (
+              <>
+                Não tem conta?{' '}
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={() => navigate('/register/associado')}
+                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                >
+                  Cadastre-se como Associado
+                </Button>
+              </>
+            )}
+            {tipoUsuario === 'comerciante' && (
+              <>
+                Não tem conta?{' '}
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={() => navigate('/register/comercio')}
+                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                >
+                  Cadastre-se como Comerciante
+                </Button>
+              </>
+            )}
+            {!tipoUsuario && (
+              <>
+                Não tem conta?{' '}
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={() => navigate('/register/associado')}
+                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                >
+                  Cadastre-se como Associado
+                </Button>
+                {' ou '}
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={() => navigate('/register/comercio')}
+                  sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
+                >
+                  Cadastre-se como Comerciante
+                </Button>
+              </>
+            )}
+          </Typography>
         </Box>
       </Paper>
     </Container>

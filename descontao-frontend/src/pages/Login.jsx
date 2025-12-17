@@ -143,7 +143,7 @@ const Login = () => {
               <Button
                 variant="text"
                 size="small"
-                onClick={() => setError('Funcionalidade de recuperação de senha em desenvolvimento')}
+                onClick={() => navigate('/esqueci-senha')}
                 sx={{ textTransform: 'none', p: 0, minWidth: 'auto' }}
               >
                 Esqueci minha senha

@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import RegisterAssociado from './pages/RegisterAssociado';
 import RegisterComercio from './pages/RegisterComercio';
+import EsqueciSenha from './pages/EsqueciSenha';
+import RedefinirSenha from './pages/RedefinirSenha';
 import Dashboard from './pages/Dashboard';
 import CuponsDisponiveis from './pages/CuponsDisponiveis';
 import MeusCupons from './pages/MeusCupons';
@@ -33,6 +35,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+            <Route path="/reset-password" element={<RedefinirSenha />} />
             <Route path="/register/associado" element={<RegisterAssociado />} />
             <Route path="/register/comercio" element={<RegisterComercio />} />
             <Route path="/dashboard" element={<Dashboard />} />

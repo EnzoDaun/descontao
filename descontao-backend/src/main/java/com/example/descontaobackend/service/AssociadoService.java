@@ -50,25 +50,6 @@ public class AssociadoService {
         return associadoRepository.save(associado);
     }
 
-    public Associado update(Long cpf, AssociadoDto dto) {
-        Associado associado = associadoRepository.findById(cpf)
-            .orElseThrow(() -> new RuntimeException("Associado não encontrado"));
-
-        associado.setNome(dto.getNome());
-        associado.setDataNascimento(dto.getDataNascimento());
-        associado.setEndereco(dto.getEndereco());
-        associado.setBairro(dto.getBairro());
-        associado.setCep(dto.getCep());
-        associado.setCidade(dto.getCidade());
-        associado.setUf(dto.getUf());
-        associado.setCelular(dto.getCelular());
-
-        return associadoRepository.save(associado);
-    }
-
-    public void delete(Long cpf) {
-        associadoRepository.deleteById(cpf);
-    }
 
     public boolean existsByCpf(Long cpf) {
         return associadoRepository.existsByCpf(cpf);

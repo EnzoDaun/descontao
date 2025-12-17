@@ -59,31 +59,6 @@ public class ComercioService {
         return comercioRepository.save(comercio);
     }
 
-    public Comercio update(Long cnpj, ComercioDto dto) {
-        Comercio comercio = comercioRepository.findById(cnpj)
-            .orElseThrow(() -> new RuntimeException("Comércio não encontrado"));
-
-        if (dto.getCategoriaId() != null) {
-            Categoria categoria = categoriaRepository.findById(dto.getCategoriaId())
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
-            comercio.setCategoria(categoria);
-        }
-
-        comercio.setRazaoSocial(dto.getRazaoSocial());
-        comercio.setNomeFantasia(dto.getNomeFantasia());
-        comercio.setEndereco(dto.getEndereco());
-        comercio.setBairro(dto.getBairro());
-        comercio.setCep(dto.getCep());
-        comercio.setCidade(dto.getCidade());
-        comercio.setUf(dto.getUf());
-        comercio.setContato(dto.getContato());
-
-        return comercioRepository.save(comercio);
-    }
-
-    public void delete(Long cnpj) {
-        comercioRepository.deleteById(cnpj);
-    }
 
     public boolean existsByCnpj(Long cnpj) {
         return comercioRepository.existsByCnpj(cnpj);

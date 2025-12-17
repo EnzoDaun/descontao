@@ -1,6 +1,6 @@
 # Descontão Frontend
 
-Interface React para o sistema de cupons de desconto
+Interface React + Vite para o sistema de cupons de desconto
 
 ## Como executar
 
@@ -16,12 +16,14 @@ A aplicação estará em `http://localhost:5173`
 - Visualizar cupons disponíveis por categoria
 - Reservar cupons
 - Acompanhar cupons reservados/utilizados
+- **Recuperar senha via email**
 
 ### Comerciantes  
 - Cadastro e login com CNPJ
 - Criar cupons de desconto
 - Gerenciar cupons criados
 - Validar uso de cupons
+- **Recuperar senha via email**
 
 ## Tecnologias
 

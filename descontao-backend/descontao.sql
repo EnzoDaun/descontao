@@ -63,6 +63,17 @@ CREATE TABLE cupom_associado (
   FOREIGN KEY (cpf_associado) REFERENCES associado(cpf_associado)
 );
 
+-- Tokens de Redefinição de Senha
+CREATE TABLE password_reset_token (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  token VARCHAR(255) UNIQUE NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  user_type VARCHAR(20) NOT NULL, -- 'ASSOCIADO' ou 'COMERCIO'
+  expiry_date DATETIME NOT NULL,
+  used BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Dados iniciais
 INSERT INTO categoria (nom_categoria) VALUES
 ('Alimentação'),
@@ -70,3 +81,12 @@ INSERT INTO categoria (nom_categoria) VALUES
 ('Farmácia'),
 ('Eletrônicos'),
 ('Serviços');
+
+INSERT INTO associado (cpf_associado, nom_associado, email_associado, sen_associado) VALUES
+(12345678901, 'João Silva', 'joao@teste.com', '123456'),
+(98765432100, 'Maria Santos', 'maria@teste.com', 'senha123');
+
+INSERT INTO comercio (cnpj_comercio, id_categoria, raz_social_comercio, nom_fantasia_comercio, email_comercio, sen_comercio) VALUES
+(12345678000123, 1, 'Restaurante Bom Sabor LTDA', 'Bom Sabor', 'comercio@teste.com', 'comercio123'),
+(98765432000100, 2, 'Loja de Roupas Fashion LTDA', 'Fashion Store', 'loja@teste.com', 'loja456');
+

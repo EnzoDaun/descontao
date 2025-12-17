@@ -69,12 +69,6 @@ public class CupomAssociadoService {
         return cupomAssociadoRepository.save(cupomAssociado);
     }
 
-    public List<CupomDto> listarCuponsParaUsoPorComercio(Long cnpjComercio) {
-        return cupomAssociadoRepository.findByCupom_Comercio_Cnpj(cnpjComercio).stream()
-            .filter(ca -> !ca.isUtilizado() && ca.getCupom().isAtivo())
-            .map(this::toDto)
-            .collect(Collectors.toList());
-    }
 
     private CupomDto toDto(CupomAssociado cupomAssociado) {
         Cupom cupom = cupomAssociado.getCupom();

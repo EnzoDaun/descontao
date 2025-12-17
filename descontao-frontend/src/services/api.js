@@ -7,4 +7,11 @@ const api = axios.create({
   },
 });
 
+// Funções de recuperação de senha
+export const passwordResetAPI = {
+  requestReset: (data) => api.post('/password-reset/request', data),
+  validateToken: (token) => api.get('/password-reset/validate-token', { params: { token } }),
+  confirmReset: (data) => api.post('/password-reset/confirm', data),
+};
+
 export default api;

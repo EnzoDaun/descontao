@@ -20,11 +20,6 @@ public class CategoriaService {
             .collect(Collectors.toList());
     }
 
-    public CategoriaDto findById(Integer id) {
-        Categoria categoria = categoriaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
-        return toDto(categoria);
-    }
 
     private CategoriaDto toDto(Categoria categoria) {
         return new CategoriaDto(categoria.getId(), categoria.getNome());

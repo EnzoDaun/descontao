@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
+  <rect x="2" y="8" width="24" height="24" rx="6" fill="#2563eb"/>
+  <path d="M6 16h16a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5H6a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 6 16z" fill="white"/>
+  <path d="M9 19h10M9 21h8" stroke="#2563eb" stroke-width="1" stroke-linecap="round"/>
+  <circle cx="18" cy="20" r="1" fill="#10b981"/>
+  <text x="32" y="25" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#1e293b">Descontão</text>
+</svg>
+

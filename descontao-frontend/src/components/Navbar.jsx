@@ -13,7 +13,7 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, Loyalty as LoyaltyIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -59,14 +59,30 @@ const Navbar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, cursor: 'pointer' }}
+        <Box
+          sx={{
+            flexGrow: 1,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1
+          }}
           onClick={() => navigate('/')}
         >
-          Descontão
-        </Typography>
+          <LoyaltyIcon
+            sx={{
+              fontSize: 28,
+              color: 'white'
+            }}
+          />
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ fontWeight: 600 }}
+          >
+            Descontão
+          </Typography>
+        </Box>
 
         {isAuthenticated() ? (
           <>
@@ -80,16 +96,49 @@ const Navbar = () => {
               </IconButton>
             ) : (
               <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                <Button color="inherit" onClick={() => navigate('/dashboard')}>
+                <Button
+                  color="inherit"
+                  onClick={() => navigate('/dashboard')}
+                  sx={{
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    borderRadius: 2,
+                    '&:hover': {
+                      bgcolor: 'rgba(255, 255, 255, 0.1)',
+                    }
+                  }}
+                >
                   Dashboard
                 </Button>
 
                 {isAssociado() && (
                   <>
-                    <Button color="inherit" onClick={() => navigate('/cupons/disponiveis')}>
+                    <Button
+                      color="inherit"
+                      onClick={() => navigate('/cupons/disponiveis')}
+                      sx={{
+                        textTransform: 'none',
+                        fontWeight: 500,
+                        borderRadius: 2,
+                        '&:hover': {
+                          bgcolor: 'rgba(255, 255, 255, 0.1)',
+                        }
+                      }}
+                    >
                       Cupons Disponíveis
                     </Button>
-                    <Button color="inherit" onClick={() => navigate('/cupons/meus')}>
+                    <Button
+                      color="inherit"
+                      onClick={() => navigate('/cupons/meus')}
+                      sx={{
+                        textTransform: 'none',
+                        fontWeight: 500,
+                        borderRadius: 2,
+                        '&:hover': {
+                          bgcolor: 'rgba(255, 255, 255, 0.1)',
+                        }
+                      }}
+                    >
                       Meus Cupons
                     </Button>
                   </>
@@ -97,22 +146,76 @@ const Navbar = () => {
 
                 {isComercio() && (
                   <>
-                    <Button color="inherit" onClick={() => navigate('/cupons/criar')}>
+                    <Button
+                      color="inherit"
+                      onClick={() => navigate('/cupons/criar')}
+                      sx={{
+                        textTransform: 'none',
+                        fontWeight: 500,
+                        borderRadius: 2,
+                        '&:hover': {
+                          bgcolor: 'rgba(255, 255, 255, 0.1)',
+                        }
+                      }}
+                    >
                       Criar Cupons
                     </Button>
-                    <Button color="inherit" onClick={() => navigate('/cupons/gerenciar')}>
+                    <Button
+                      color="inherit"
+                      onClick={() => navigate('/cupons/gerenciar')}
+                      sx={{
+                        textTransform: 'none',
+                        fontWeight: 500,
+                        borderRadius: 2,
+                        '&:hover': {
+                          bgcolor: 'rgba(255, 255, 255, 0.1)',
+                        }
+                      }}
+                    >
                       Gerenciar Cupons
                     </Button>
-                    <Button color="inherit" onClick={() => navigate('/cupons/validar')}>
+                    <Button
+                      color="inherit"
+                      onClick={() => navigate('/cupons/validar')}
+                      sx={{
+                        textTransform: 'none',
+                        fontWeight: 500,
+                        borderRadius: 2,
+                        '&:hover': {
+                          bgcolor: 'rgba(255, 255, 255, 0.1)',
+                        }
+                      }}
+                    >
                       Validar Cupons
                     </Button>
                   </>
                 )}
 
-                <Typography variant="body2" sx={{ alignSelf: 'center', mr: 2 }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    alignSelf: 'center',
+                    mr: 2,
+                    fontWeight: 500,
+                    opacity: 0.9
+                  }}
+                >
                   {user?.nome}
                 </Typography>
-                <Button color="inherit" onClick={handleLogout}>
+                <Button
+                  color="inherit"
+                  onClick={handleLogout}
+                  sx={{
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    borderRadius: 2,
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    '&:hover': {
+                      bgcolor: 'rgba(255, 255, 255, 0.1)',
+                      borderColor: 'rgba(255, 255, 255, 0.5)',
+                    }
+                  }}
+                >
                   Sair
                 </Button>
               </Box>
@@ -129,16 +232,32 @@ const Navbar = () => {
                 </Typography>
                 <List>
                   {menuItems.map((item, index) => (
-                    <ListItem
-                      button
-                      key={index}
-                      onClick={() => handleMenuClick(item.path)}
-                    >
-                      <ListItemText primary={item.label} />
+                    <ListItem key={index}>
+                      <Button
+                        fullWidth
+                        sx={{
+                          justifyContent: 'flex-start',
+                          color: 'inherit',
+                          textTransform: 'none'
+                        }}
+                        onClick={() => handleMenuClick(item.path)}
+                      >
+                        <ListItemText primary={item.label} />
+                      </Button>
                     </ListItem>
                   ))}
-                  <ListItem button onClick={handleLogout}>
-                    <ListItemText primary="Sair" />
+                  <ListItem>
+                    <Button
+                      fullWidth
+                      sx={{
+                        justifyContent: 'flex-start',
+                        color: 'inherit',
+                        textTransform: 'none'
+                      }}
+                      onClick={handleLogout}
+                    >
+                      <ListItemText primary="Sair" />
+                    </Button>
                   </ListItem>
                 </List>
               </Box>

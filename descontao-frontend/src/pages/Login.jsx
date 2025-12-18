@@ -86,13 +86,17 @@ const Login = () => {
               }
               name="documento"
               value={formData.documento}
-              onChange={handleChange}
+              onChange={(e) => {
+                const maxLength = tipoUsuario === 'associado' ? 11 : tipoUsuario === 'comerciante' ? 14 : 14;
+                const value = e.target.value.replace(/\D/g, '').substring(0, maxLength);
+                setFormData({ ...formData, documento: value });
+              }}
               margin="normal"
               required
               helperText={
-                tipoUsuario === 'associado' ? 'Digite seu CPF' :
-                tipoUsuario === 'comerciante' ? 'Digite seu CNPJ' :
-                'Digite seu CPF ou CNPJ'
+                tipoUsuario === 'associado' ? 'Digite apenas os números do CPF (11 dígitos)' :
+                tipoUsuario === 'comerciante' ? 'Digite apenas os números do CNPJ (14 dígitos)' :
+                'Digite apenas números'
               }
             />
 

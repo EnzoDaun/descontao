@@ -82,11 +82,41 @@ INSERT INTO categoria (nom_categoria) VALUES
 ('Eletrônicos'),
 ('Serviços');
 
+-- Usuários de teste
 INSERT INTO associado (cpf_associado, nom_associado, email_associado, sen_associado) VALUES
 (12345678901, 'João Silva', 'joao@teste.com', '123456'),
 (98765432100, 'Maria Santos', 'maria@teste.com', 'senha123');
 
 INSERT INTO comercio (cnpj_comercio, id_categoria, raz_social_comercio, nom_fantasia_comercio, email_comercio, sen_comercio) VALUES
 (12345678000123, 1, 'Restaurante Bom Sabor LTDA', 'Bom Sabor', 'comercio@teste.com', 'comercio123'),
-(98765432000100, 2, 'Loja de Roupas Fashion LTDA', 'Fashion Store', 'loja@teste.com', 'loja456');
+(98765432000100, 2, 'Loja de Roupas Fashion LTDA', 'Fashion Store', 'loja@teste.com', 'loja456'),
+(11111111000111, 3, 'Farmácia Saúde Total LTDA', 'Saúde Total', 'farmacia@teste.com', 'farm123'),
+(22222222000111, 4, 'Eletrônicos Tech Store LTDA', 'Tech Store', 'tech@teste.com', 'tech123'),
+(33333333000111, 5, 'Serviços Rápidos LTDA', 'Rápidos', 'servicos@teste.com', 'serv123');
+
+-- Cupons de exemplo para cada categoria
+-- Categoria 1 - Alimentação (Bom Sabor)
+INSERT INTO cupom (num_cupom, tit_cupom, cnpj_comercio, dta_emissao_cupom, dta_inicio_cupom, dta_termino_cupom, per_desc_cupom) VALUES
+('ALI001234567', 'Desconto Almoço', 12345678000123, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 30 DAY), 15.00),
+('ALI009876543', 'Happy Hour', 12345678000123, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 15 DAY), 20.00);
+
+-- Categoria 2 - Vestuário (Fashion Store)
+INSERT INTO cupom (num_cupom, tit_cupom, cnpj_comercio, dta_emissao_cupom, dta_inicio_cupom, dta_termino_cupom, per_desc_cupom) VALUES
+('VES001234567', 'Desconto Verão', 98765432000100, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 45 DAY), 25.00),
+('VES009876543', 'Liquidação', 98765432000100, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 20 DAY), 30.00);
+
+-- Categoria 3 - Farmácia (Saúde Total)
+INSERT INTO cupom (num_cupom, tit_cupom, cnpj_comercio, dta_emissao_cupom, dta_inicio_cupom, dta_termino_cupom, per_desc_cupom) VALUES
+('FAR001234567', 'Desconto Medicamentos', 11111111000111, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 60 DAY), 10.00),
+('FAR009876543', 'Vitaminas', 11111111000111, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 30 DAY), 12.00);
+
+-- Categoria 4 - Eletrônicos (Tech Store)
+INSERT INTO cupom (num_cupom, tit_cupom, cnpj_comercio, dta_emissao_cupom, dta_inicio_cupom, dta_termino_cupom, per_desc_cupom) VALUES
+('ELE001234567', 'Black Friday Tech', 22222222000111, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 7 DAY), 35.00),
+('ELE009876543', 'Smartphones', 22222222000111, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 15 DAY), 20.00);
+
+-- Categoria 5 - Serviços (Rápidos)
+INSERT INTO cupom (num_cupom, tit_cupom, cnpj_comercio, dta_emissao_cupom, dta_inicio_cupom, dta_termino_cupom, per_desc_cupom) VALUES
+('SER001234567', 'Primeira Consulta', 33333333000111, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 90 DAY), 50.00),
+('SER009876543', 'Manutenção Express', 33333333000111, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 30 DAY), 15.00);
 

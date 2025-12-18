@@ -115,8 +115,14 @@ const RegisterAssociado = () => {
                   label="CPF"
                   name="cpf"
                   value={formData.cpf}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, '').substring(0, 11);
+                    setFormData({ ...formData, cpf: value });
+                  }}
                   required
+                  placeholder="12345678901"
+                  inputProps={{ maxLength: 11 }}
+                  helperText="Apenas números (11 dígitos)"
                 />
               </Grid>
 
@@ -129,6 +135,7 @@ const RegisterAssociado = () => {
                   onChange={handleChange}
                   required
                   inputProps={{ maxLength: 40 }}
+                  helperText={`${formData.nome.length}/40 caracteres`}
                 />
               </Grid>
 
@@ -160,6 +167,7 @@ const RegisterAssociado = () => {
                   onChange={handleChange}
                   required
                   inputProps={{ maxLength: 50 }}
+                  helperText={`${formData.email.length}/50 caracteres`}
                 />
               </Grid>
 
@@ -171,6 +179,7 @@ const RegisterAssociado = () => {
                   value={formData.endereco}
                   onChange={handleChange}
                   inputProps={{ maxLength: 40 }}
+                  helperText={`${formData.endereco.length}/40 caracteres`}
                 />
               </Grid>
 
@@ -182,6 +191,7 @@ const RegisterAssociado = () => {
                   value={formData.bairro}
                   onChange={handleChange}
                   inputProps={{ maxLength: 30 }}
+                  helperText={`${formData.bairro.length}/30 caracteres`}
                 />
               </Grid>
 
@@ -208,6 +218,7 @@ const RegisterAssociado = () => {
                   value={formData.cidade}
                   onChange={handleChange}
                   inputProps={{ maxLength: 40 }}
+                  helperText={`${formData.cidade.length}/40 caracteres`}
                 />
               </Grid>
 

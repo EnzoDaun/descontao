@@ -125,8 +125,14 @@ const RegisterComercio = () => {
                 label="CNPJ"
                 name="cnpj"
                 value={formData.cnpj}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '').substring(0, 14);
+                  setFormData({ ...formData, cnpj: value });
+                }}
                 required
+                placeholder="12345678000195"
+                inputProps={{ maxLength: 14 }}
+                helperText="Apenas números (14 dígitos)"
               />
             </Grid>
 
@@ -157,6 +163,7 @@ const RegisterComercio = () => {
                 onChange={handleChange}
                 required
                 inputProps={{ maxLength: 50 }}
+                helperText={`${formData.razaoSocial.length}/50 caracteres`}
               />
             </Grid>
 
@@ -168,6 +175,7 @@ const RegisterComercio = () => {
                 value={formData.nomeFantasia}
                 onChange={handleChange}
                 inputProps={{ maxLength: 30 }}
+                helperText={`${formData.nomeFantasia.length}/30 caracteres`}
               />
             </Grid>
 
@@ -179,6 +187,7 @@ const RegisterComercio = () => {
                 value={formData.endereco}
                 onChange={handleChange}
                 inputProps={{ maxLength: 40 }}
+                helperText={`${formData.endereco.length}/40 caracteres`}
               />
             </Grid>
 
@@ -190,6 +199,7 @@ const RegisterComercio = () => {
                 value={formData.bairro}
                 onChange={handleChange}
                 inputProps={{ maxLength: 30 }}
+                helperText={`${formData.bairro.length}/30 caracteres`}
               />
             </Grid>
 
@@ -216,6 +226,7 @@ const RegisterComercio = () => {
                 value={formData.cidade}
                 onChange={handleChange}
                 inputProps={{ maxLength: 40 }}
+                helperText={`${formData.cidade.length}/40 caracteres`}
               />
             </Grid>
 
@@ -259,6 +270,7 @@ const RegisterComercio = () => {
                 onChange={handleChange}
                 required
                 inputProps={{ maxLength: 50 }}
+                helperText={`${formData.email.length}/50 caracteres`}
               />
             </Grid>
 

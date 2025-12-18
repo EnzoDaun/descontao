@@ -108,6 +108,8 @@ const CriarCupom = () => {
                   value={formData.titulo}
                   onChange={handleChange}
                   required
+                  inputProps={{ maxLength: 25 }}
+                  helperText={`${formData.titulo.length}/25 caracteres`}
                 />
               </Grid>
 
@@ -154,8 +156,11 @@ const CriarCupom = () => {
                   name="percentualDesconto"
                   type="number"
                   value={formData.percentualDesconto}
-                  onChange={handleChange}
-                  inputProps={{ min: 1, max: 100, step: 0.01 }}
+                  onChange={(e) => {
+                    const value = Math.min(100, Math.max(0.01, parseFloat(e.target.value) || 0));
+                    setFormData({ ...formData, percentualDesconto: value });
+                  }}
+                  inputProps={{ min: 0.01, max: 100, step: 0.01 }}
                   required
                 />
               </Grid>
@@ -167,8 +172,11 @@ const CriarCupom = () => {
                   name="quantidade"
                   type="number"
                   value={formData.quantidade}
-                  onChange={handleChange}
-                  inputProps={{ min: 1 }}
+                  onChange={(e) => {
+                    const value = Math.min(10000, Math.max(1, parseInt(e.target.value) || 1));
+                    setFormData({ ...formData, quantidade: value });
+                  }}
+                  inputProps={{ min: 1, max: 10000 }}
                   required
                 />
               </Grid>

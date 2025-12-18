@@ -1,6 +1,7 @@
 package com.example.descontaobackend.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,8 @@ public class Categoria {
     @Column(name = "id_categoria")
     private Integer id;
 
+    @NotBlank(message = "Nome da categoria é obrigatório")
+    @Size(min = 2, max = 25, message = "Nome da categoria deve ter entre 2 e 25 caracteres")
     @Column(name = "nom_categoria", nullable = false, length = 25)
     private String nome;
 

@@ -15,6 +15,7 @@ public class Cupom {
     private String numero;
 
     @NotBlank(message = "Título é obrigatório")
+    @Size(min = 2, max = 25, message = "Título deve ter entre 2 e 25 caracteres")
     @Column(name = "tit_cupom", nullable = false, length = 25)
     private String titulo;
 

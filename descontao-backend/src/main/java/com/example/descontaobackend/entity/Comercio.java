@@ -17,36 +17,46 @@ public class Comercio {
     private Categoria categoria;
 
     @NotBlank(message = "Razão social é obrigatória")
+    @Size(min = 2, max = 50, message = "Razão social deve ter entre 2 e 50 caracteres")
     @Column(name = "raz_social_comercio", nullable = false, length = 50)
     private String razaoSocial;
 
+    @Size(max = 30, message = "Nome fantasia não pode ter mais de 30 caracteres")
     @Column(name = "nom_fantasia_comercio", length = 30)
     private String nomeFantasia;
 
+    @Size(max = 40, message = "Endereço não pode ter mais de 40 caracteres")
     @Column(name = "end_comercio", length = 40)
     private String endereco;
 
+    @Size(max = 30, message = "Bairro não pode ter mais de 30 caracteres")
     @Column(name = "bai_comercio", length = 30)
     private String bairro;
 
+    @Pattern(regexp = "^[0-9]{8}$", message = "CEP deve conter exatamente 8 dígitos")
     @Column(name = "cep_comercio", length = 8)
     private String cep;
 
+    @Size(max = 40, message = "Cidade não pode ter mais de 40 caracteres")
     @Column(name = "cid_comercio", length = 40)
     private String cidade;
 
+    @Pattern(regexp = "^[A-Z]{2}$", message = "UF deve conter exatamente 2 letras maiúsculas")
     @Column(name = "uf_comercio", length = 2)
     private String uf;
 
+    @Pattern(regexp = "^[0-9]{10,15}$", message = "Contato deve conter entre 10 e 15 dígitos")
     @Column(name = "con_comercio", length = 15)
     private String contato;
 
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email deve ser válido")
+    @Size(max = 50, message = "Email não pode ter mais de 50 caracteres")
     @Column(name = "email_comercio", nullable = false, unique = true, length = 50)
     private String email;
 
     @NotBlank(message = "Senha é obrigatória")
+    @Size(min = 6, max = 255, message = "Senha deve ter pelo menos 6 caracteres")
     @Column(name = "sen_comercio", nullable = false)
     private String senha;
 

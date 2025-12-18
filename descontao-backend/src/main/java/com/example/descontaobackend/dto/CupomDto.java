@@ -9,6 +9,7 @@ public class CupomDto {
     private String numero;
 
     @NotBlank(message = "Título é obrigatório")
+    @Size(min = 2, max = 25, message = "Título deve ter entre 2 e 25 caracteres")
     private String titulo;
 
     private String nomeComercio;
